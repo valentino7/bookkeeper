@@ -7,5 +7,5 @@ addons:
     organization: valentino7
     token: e242c9ef44eb9e3732508da0e6c876ae2630577c
 install: mvn clean package -DskipTests
-script: mvn clean verify sonar:sonar 
+script: mvn -X clean verify sonar:sonar 
 
