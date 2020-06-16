@@ -1007,31 +1007,6 @@
     </build>
     <profiles>
         <profile>
-            <!-- profile used by jenkins CI -->
-            <id>code-coverage</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.eluder.coveralls</groupId>
-                        <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>${coveralls-maven-plugin.version}</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <id>jdk11-no-spotbugs</id>
             <activation>
                 <jdk>[11,)</jdk>
@@ -1062,6 +1037,28 @@
                                     <!-- we have a dedicated distribution module in bookkeeper-dist -->
                                     <skipAssembly>true</skipAssembly>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
