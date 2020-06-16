@@ -11,18 +11,17 @@
 
     <artifactId>testCoverage</artifactId>
 
-
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
+    <name>TestCoverage</name>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.bookkeeper</groupId>
             <artifactId>bookkeeper-server</artifactId>
-            <version>4.11.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
