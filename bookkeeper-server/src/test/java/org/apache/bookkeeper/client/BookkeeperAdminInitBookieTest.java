@@ -1,5 +1,6 @@
 package org.apache.bookkeeper.client;
 
+import org.apache.bookkeeper.conf.BookKeeperClusterTestCase;
 import org.apache.bookkeeper.conf.ServerConfiguration;
 import org.apache.bookkeeper.test.ZooKeeperCluster;
 import org.apache.bookkeeper.test.ZooKeeperClusterUtil;
@@ -14,7 +15,7 @@ import java.util.*;
 
 
 @RunWith(Parameterized.class)
-public class BookkeeperAdminInitBookieTest{
+public class BookkeeperAdminInitBookieTest {
 
 
 
@@ -23,16 +24,21 @@ public class BookkeeperAdminInitBookieTest{
     private ServerConfiguration confTest;
     String path = "/test";
 
+
+    private static final int numOfBookies = 2;
+    private final int lostBookieRecoveryDelayInitValue = 1800;
+
     @Before
     public void setUp() throws Exception {
         //creo cluster di zookkeeper
 //        super.setUp();
         //E' necessario inizializzare un cluster prima di testare il suo nuke
-        System.out.println("Inizializzazione");
+//        System.out.println("Inizializzazione");
         //Il cluster di metadati è gestito con ZooKeeper, instanziamo quindi un cluster Zookeeper
         try {
-            zk = new ZooKeeperClusterUtil(5);
+            zk = new ZooKeeperClusterUtil(3);
             zk.startCluster();
+
             System.out.println("Cluster Zookeeper inizializzato e running");
             //E' necessario specificare lo URI dove vengono salvati i ledgers
             if(confTest != null) confTest.setMetadataServiceUri(zk.getMetadataServiceUri());
@@ -42,13 +48,24 @@ public class BookkeeperAdminInitBookieTest{
         catch (Exception e) { System.out.println("Failure nell'inizializzazione del cluster"); e.printStackTrace();
         }
 
+
+
     }
 
-
-    @After
+//
+   @After
     public void after() throws Exception {
-        zk.killCluster();
-    }
+
+        try {
+            zk.killCluster();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+//       super.tearDown();
+
+
+   }
 
 
     @Parameterized.Parameters
@@ -88,6 +105,12 @@ public class BookkeeperAdminInitBookieTest{
 //        baseConf.setLostBookieRecoveryDelay(lostBookieRecoveryDelayInitValue);
 //        baseConf.setOpenLedgerRereplicationGracePeriod(String.valueOf(30000));
 //        setAutoRecoveryEnabled(true);
+
+
+//        super(numOfBookies, 480);
+//        baseConf.setLostBookieRecoveryDelay(lostBookieRecoveryDelayInitValue);
+//        baseConf.setOpenLedgerRereplicationGracePeriod(String.valueOf(30000));
+//        setAutoRecoveryEnabled(true);
         this.confTest = conf;
         this.expected = expected;
     }
@@ -106,8 +129,6 @@ public class BookkeeperAdminInitBookieTest{
             valid = false;
         }
         Assert.assertEquals(this.expected, valid);
-
-
     }
 
 }

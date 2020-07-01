@@ -1,9 +1,9 @@
 package org.apache.bookkeeper.client;
 
 import com.google.common.collect.Sets;
+import org.apache.bookkeeper.conf.BookKeeperClusterTestCase;
 import org.apache.bookkeeper.conf.ServerConfiguration;
 import org.apache.bookkeeper.net.BookieSocketAddress;
-import org.apache.bookkeeper.test.BookKeeperClusterTestCase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class BookkeeperAdminFormatEnsembleTest extends BookKeeperClusterTestCase
 
     @After
     public void after() throws Exception {
-        super.stopZKCluster();
+        super.tearDown();
     }
 
     /*

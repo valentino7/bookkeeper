@@ -22,10 +22,12 @@ package org.apache.bookkeeper.test;
 
 import com.google.common.io.Files;
 import java.io.IOException;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.bookkeeper.meta.LongHierarchicalLedgerManagerFactory;
+import org.apache.bookkeeper.test.ZooKeeperCluster;
 import org.apache.bookkeeper.zookeeper.ZooKeeperClient;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
@@ -60,7 +62,7 @@ public class ZooKeeperClusterUtil implements ZooKeeperCluster {
         try {
             System.setProperty("build.test.dir", Files.createTempDir().getCanonicalPath());
         } catch (IOException e) {
-            log.error("Failed to create temp dir, so setting build.test.dir system property to /tmp");
+            LOG.error("Failed to create temp dir, so setting build.test.dir system property to /tmp");
             System.setProperty("build.test.dir", "/tmp");
         }
     }

@@ -19,7 +19,7 @@
  *
  */
 
-package org.apache.bookkeeper.test;
+package org.apache.bookkeeper.conf;
 
 
 
@@ -60,6 +60,9 @@ import org.apache.bookkeeper.replication.Auditor;
 import org.apache.bookkeeper.replication.AutoRecoveryMain;
 import org.apache.bookkeeper.replication.ReplicationException.CompatibilityException;
 import org.apache.bookkeeper.replication.ReplicationException.UnavailableException;
+import org.apache.bookkeeper.test.TestStatsProvider;
+import org.apache.bookkeeper.test.ZooKeeperClusterUtil;
+import org.apache.bookkeeper.test.ZooKeeperUtil;
 import org.apache.bookkeeper.util.IOUtils;
 import org.apache.bookkeeper.util.PortManager;
 import org.apache.commons.io.FileUtils;
@@ -87,7 +90,7 @@ public abstract class BookKeeperClusterTestCase {
     public final Timeout globalTimeout;
 
     // Metadata service related variables
-    protected final ZooKeeperCluster zkUtil;
+    protected final org.apache.bookkeeper.test.ZooKeeperCluster zkUtil;
     protected ZooKeeper zkc;
     protected String metadataServiceUri;
 

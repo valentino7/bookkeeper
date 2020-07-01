@@ -1,4 +1,4 @@
-package org.apache.bookkeeper.bookie;
+package org.apache.bookkeeper.bookie.storage.ldb;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

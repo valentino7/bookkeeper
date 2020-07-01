@@ -45,7 +45,7 @@ public class TestBKConfiguration {
      * <p>If the caller doesn't want loopback address, then listeningInterface
      * should be set back to null.
      */
-    public static ServerConfiguration newServerConfiguration() {
+    public static org.apache.bookkeeper.conf.ServerConfiguration newServerConfiguration() {
         ServerConfiguration confReturn = new ServerConfiguration();
         confReturn.setJournalFlushWhenQueueEmpty(true);
         // enable journal format version

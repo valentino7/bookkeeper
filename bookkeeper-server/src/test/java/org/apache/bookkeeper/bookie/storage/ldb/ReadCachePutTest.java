@@ -1,4 +1,4 @@
-package org.apache.bookkeeper.bookie;
+package org.apache.bookkeeper.bookie.storage.ldb;
 
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
