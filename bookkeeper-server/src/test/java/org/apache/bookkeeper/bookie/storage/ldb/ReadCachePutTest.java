@@ -24,6 +24,7 @@ public class    ReadCachePutTest {
     private ByteBuf entry;
     private long ledgerId;
     private long entryId;
+    private boolean expected;
 
 
     @Parameterized.Parameters
@@ -31,9 +32,9 @@ public class    ReadCachePutTest {
 
         return Arrays.asList(new Object[][] {
                 //grandezza buffer per numero entry
-                { -1, 0, null},
-                { 0, -1, Unpooled.wrappedBuffer(new byte[64])},
-                { 0, 0, Unpooled.wrappedBuffer(new byte[64])}
+                { -1, -1, Unpooled.wrappedBuffer(new byte[64]), false},
+                { 0, 1, Unpooled.wrappedBuffer(new byte[64]), true},
+                { 0, 0, Unpooled.wrappedBuffer(new byte[64]), true}
         });
     }
 
@@ -47,25 +48,29 @@ public class    ReadCachePutTest {
         this.cache = new ReadCache(UnpooledByteBufAllocator.DEFAULT, 10 * 1024);
     }
 
-    public ReadCachePutTest(long ledgerId, long entryId, ByteBuf entry){
+    public ReadCachePutTest(long ledgerId, long entryId, ByteBuf entry, boolean expected){
         this.ledgerId = ledgerId;
         this.entryId = entryId;
         this.entry = entry;
+        this.expected = expected;
     }
 
 
 
     @Test
     public void put(){
+        boolean result;
         try {
-            this.cache.put(this.entryId, this.entryId, this.entry);
-            assertEquals(1, this.cache.count());
-            assertEquals(this.entry, cache.get(this.ledgerId, this.entryId));
-            return;
+            this.cache.put(this.ledgerId, this.entryId, this.entry);
+//            assertEquals(1, this.cache.count());
+            result = cache.get(this.ledgerId, this.entryId).equals(this.entry);
+
         }
         catch(Exception e) {
-            assertTrue(Boolean.TRUE);
+            e.printStackTrace();
+            result = false;
         }
+        Assert.assertEquals(this.expected, result);
     }
 
 }

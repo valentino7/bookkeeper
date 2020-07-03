@@ -61,6 +61,7 @@ public class BookkeeperAdminFormatEnsembleTest extends BookKeeperClusterTestCase
         ensembleOfSegment1.add(bookie1);
         ensembleOfSegment1.add(bookie2);
 
+
         List<BookieSocketAddress> ensembleOfSegment2 = new ArrayList<BookieSocketAddress>();
         ensembleOfSegment2.add(bookie3);
 /*
